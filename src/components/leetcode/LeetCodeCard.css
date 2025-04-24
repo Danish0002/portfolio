@@ -1,0 +1,149 @@
+.leetcode-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  color: black;
+  font-family: sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 500px;/* Increased height */
+  justify-content: space-between; /* Distribute space evenly */
+  
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  
+}
+
+.card-subtitle {
+  color: #888;
+  margin-bottom: 1.5rem;
+  
+}
+a{
+  text-decoration: none;
+}
+
+.leetcode-section {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  flex-grow: 1; /* Ensure the section grows to fill the available height */
+  
+}
+
+.leetcode-box {
+  flex: 1 1 45%;
+  min-width: 220px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #f9fafb;
+  
+}
+
+.card-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  
+}
+
+.card-value {
+  font-size: 32px;
+  margin-bottom: 16px;
+  
+}
+
+.card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-list li {
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  background: #eee;
+  height: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.bar {
+  height: 6px;
+  background: #FFA116;
+  border-radius: 6px;
+}
+
+.easy .bar {
+  background: #4caf50;
+}
+
+.medium .bar {
+  background: #ffc107;
+}
+
+.hard .bar {
+  background: #f44336;
+}
+
+.chart-container {
+  width: 100%;
+  height: 200px;
+  margin-top: 12px;
+}
+
+.card-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  align-items: center; /* Center the button vertically */
+  height: 50px; /* Set a fixed height to maintain vertical centering */
+  
+}
+
+.btn {
+  padding: 10px 20px;
+  background: #FFA116;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #ff8c00;
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+  text-decoration: none;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+  .leetcode-section {
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .leetcode-box {
+    flex: 1 1 100%;
+    max-width: 100%;
+    
+  }
+}

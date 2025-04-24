@@ -1,0 +1,52 @@
+/* CertificateSection.css */
+.certificate-section {
+  padding: 40px;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e0f7fa, #fff);
+}
+
+.certificate-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.certificate-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px; /* Ensures gaps between cards */
+  padding: 20px 0;
+  align-items: stretch;
+}
+
+/* Responsive layout for certificate cards */
+.certificate-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%; /* Default to 100% width on small devices */
+}
+
+/* Medium to large screens */
+@media (min-width: 600px) {
+  .certificate-card-wrapper {
+    width: 48%; /* Two cards per row */
+  }
+}
+
+/* Large screens */
+@media (min-width: 900px) {
+  .certificate-card-wrapper {
+    width: 30%; /* Three cards per row */
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1200px) {
+  .certificate-card-wrapper {
+    width: 23%; /* Four cards per row */
+  }
+}

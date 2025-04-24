@@ -1,0 +1,147 @@
+.dev-card {
+  width: 100%;
+  max-width: 550px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 451px;
+}
+
+.dev-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #111827;
+}
+
+.dev-card-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1.6rem;
+}
+
+.dev-section {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.dev-box {
+  flex: 1 1 45%;
+  min-width: 230px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.3rem;
+}
+
+.dev-value {
+  font-size: 1.9rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.dev-value.green {
+  color: #10B981;
+}
+
+.dev-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.dev-list li a {
+  text-decoration: none;
+  color: #4b5563;
+  transition: color 0.3s ease;
+}
+
+.dev-list li a:hover {
+  color: #10b981;
+}
+
+/* Further reduced the size of the graph */
+.dev-chart {
+  width: 100%;
+  height: 120px; /* Reduced height of the graph */
+}
+
+.hover-info {
+  font-size: 1rem;
+  color: #374151;
+  margin-top: 1.2rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #374151;
+}
+
+.dev-footer.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+a{
+  text-decoration: none;
+}
+
+.btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.github-btn {
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
+}
+
+.github-btn:hover {
+  background-color: #1f2937;
+}
+
+@media (max-width: 768px) {
+  .dev-card {
+    max-width: 100%;
+    padding: 1.4rem;
+  }
+
+  .dev-section {
+    flex-direction: column;
+  }
+
+  .dev-box {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+}

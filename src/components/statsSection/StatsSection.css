@@ -1,0 +1,45 @@
+.stats-container {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+  background: var(--bg);
+}
+
+.stats-inner {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.stats-heading {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+}
+
+.stats-cards {
+  display: flex;
+  flex-direction: row;       /* always side-by-side */
+  flex-wrap: nowrap;         /* prevent wrapping until very narrow */
+  gap: 32px;
+  width: 100%;
+  justify-content: center;
+}
+
+.stats-card {
+  flex: 1 1 48%;
+  box-sizing: border-box;
+}
+
+/* on *very* small screens, allow wrap */
+@media (max-width: 480px) {
+  .stats-cards {
+    flex-wrap: wrap;
+  }
+  .stats-card {
+    flex: 1 1 100%;
+  }
+}
