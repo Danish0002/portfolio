@@ -46,7 +46,7 @@ const Hero = () => {
           transition={{ duration: 1 }}
           className="hTitle"
         >
-          Hey There,
+          Hey there,
           <br />
           <span>I'm Danish!</span>
         </motion.h1>
