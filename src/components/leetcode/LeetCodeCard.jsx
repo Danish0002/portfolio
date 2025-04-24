@@ -51,12 +51,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
     (async () => {
       try {
         const [profileRes, contestRes] = await Promise.all([
-          fetch('/graphql', {
+          fetch('../../api/leetcode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: PROFILE_QUERY, variables: { username } }),
           }),
-          fetch('/graphql', {
+          fetch('../../api/leetcode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ query: CONTEST_QUERY, variables: { username } }),
