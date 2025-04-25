@@ -15,7 +15,7 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
   const [totalRepos, setTotalRepos] = useState(0);
   const [topRepos, setTopRepos] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const token = import.meta.env.VITE_GITHUB_TOKEN;
+  const token = import.meta.env.GITHUB_TOKEN;
 
   // Compute ISO dates for last 7 days (oldest → newest)
   const dates = React.useMemo(() => {
