@@ -29,7 +29,7 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
 
   useEffect(() => {
     if (!token) {
-      console.error("Missing VITE_GITHUB_TOKEN");
+      console.error("Missing GITHUB_TOKEN");
       return;
     }
 
