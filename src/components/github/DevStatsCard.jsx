@@ -1,77 +1,107 @@
 import React, { useEffect, useState } from 'react';
 import './DevStatsCard.css';
 import { motion } from 'framer-motion';
-import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  Tooltip,
+  Cell
+} from 'recharts';
 import { Github } from 'lucide-react';
 
 const DevStatsCard = ({ username = "Danish0002" }) => {
-  const [repos, setRepos] = useState([]);
-  const [commitsByDay, setCommitsByDay] = useState(Array(7).fill(0));
+  const [totalRepos, setTotalRepos] = useState(0);
+  const [topRepos, setTopRepos] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const token = import.meta.env.VITE_GITHUB_TOKEN;
 
-  const GITHUB_TOKEN = import.meta.env.VITE_GITHUB_TOKEN;
-  const headers = GITHUB_TOKEN
-    ? {
-        Authorization: `token ${GITHUB_TOKEN}`,
-        Accept: "application/vnd.github.v3+json",
-      }
-    : {};
+  // Compute ISO dates for last 7 days (oldest → newest)
+  const dates = React.useMemo(() => {
+    const today = new Date();
+    return Array.from({ length: 7 }).map((_, i) => {
+      const d = new Date(today);
+      d.setDate(today.getDate() - (6 - i));
+      return d.toISOString().slice(0, 10);
+    });
+  }, []);
 
   useEffect(() => {
-    const fetchGitHubData = async () => {
-      try {
-        const [repoRes, eventsRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${username}/repos?per_page=100`, { headers }),
-          fetch(`https://api.github.com/users/${username}/events/public`, { headers })
-        ]);
+    if (!token) {
+      console.error("Missing VITE_GITHUB_TOKEN");
+      return;
+    }
 
-        if (!repoRes.ok || !eventsRes.ok) {
-          throw new Error(`GitHub API returned status ${repoRes.status} / ${eventsRes.status}`);
+    const query = `
+      query($login: String!, $from: DateTime!, $to: DateTime!) {
+        user(login: $login) {
+          repositories {
+            totalCount
+          }
+          topRepos: repositories(first: 3, orderBy: {field: STARGAZERS, direction: DESC}) {
+            nodes { name }
+          }
+          contributionsCollection(from: $from, to: $to) {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  date
+                  contributionCount
+                }
+              }
+            }
+          }
         }
-
-        const repoData = await repoRes.json();
-        const eventsData = await eventsRes.json();
-
-        if (Array.isArray(repoData)) setRepos(repoData);
-        else console.error("Repos data is not an array", repoData);
-
-        if (Array.isArray(eventsData)) {
-          const commitEvents = eventsData.filter(e => e.type === 'PushEvent');
-          const dayCommitMap = Array(7).fill(0);
-
-          commitEvents.forEach(event => {
-            const day = new Date(event.created_at).getDay();
-            dayCommitMap[day] += event.payload?.commits?.length || 0;
-          });
-
-          setCommitsByDay(dayCommitMap);
-        } else {
-          console.error("Events data is not an array", eventsData);
-        }
-      } catch (error) {
-        console.error("GitHub API Error:", error);
       }
+    `;
+
+    const variables = {
+      login: username,
+      from: `${dates[0]}T00:00:00Z`,
+      to: `${dates[6]}T23:59:59Z`
     };
 
-    fetchGitHubData();
-  }, [username]);
+    fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ query, variables })
+    })
+      .then(res => res.json())
+      .then(json => {
+        const user = json.data.user;
+        // total repos
+        setTotalRepos(user.repositories.totalCount);
+        // top 3 by stars
+        setTopRepos(user.topRepos.nodes.map(r => r.name));
 
-  const totalProjects = repos.length;
+        // flatten the weeks → days, filter only our 7 dates
+        const days = user.contributionsCollection.contributionCalendar.weeks
+          .flatMap(w => w.contributionDays)
+          .filter(d => dates.includes(d.date));
 
-  const topRepos = Array.isArray(repos)
-    ? repos
-        .slice()
-        .sort((a, b) => b.stargazers_count - a.stargazers_count)
-        .slice(0, 3)
-        .map(repo => repo.name)
-    : [];
+        // map into [{date: 'Apr 19', commits: number}, ...]
+        const cd = dates.map(d => {
+          const day = days.find(x => x.date === d);
+          return {
+            date: new Date(d).toLocaleDateString("default", {
+              month: "short",
+              day: "numeric"
+            }),
+            commits: day ? day.contributionCount : 0
+          };
+        });
 
-  const totalCommits = commitsByDay.reduce((a, b) => a + b, 0);
-  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        console.log("weekly chartData:", cd);
+        setChartData(cd);
+      })
+      .catch(err => console.error("GraphQL fetch error:", err));
+  }, [username, token, dates]);
 
-  const chartData = commitsByDay.map((count, index) => ({
-    day: dayNames[index],
-    commits: count
-  }));
+  const totalCommits = chartData.reduce((sum, { commits }) => sum + commits, 0);
 
   return (
     <motion.div
@@ -80,31 +110,38 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <h2 className="dev-card-title">GitHub Monthly Activity</h2>
+      <h2 className="dev-card-title">GitHub Weekly Activity</h2>
       <p className="dev-card-subtitle">
         {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
       </p>
 
       <div className="dev-section">
         <div className="dev-box">
-          <p className="dev-label">Total Projects</p>
-          <p className="dev-value">{totalProjects}</p>
+          <p className="dev-label">Total Repositories</p>
+          <p className="dev-value">{totalRepos}</p>
           <ul className="dev-list">
-            {topRepos.map((name, index) => (
-              <li key={index}>• {name}</li>
+            {topRepos.map((name, idx) => (
+              <li key={idx}>• {name}</li>
             ))}
           </ul>
         </div>
 
         <div className="dev-box">
-          <p className="dev-label">Total Commits</p>
+          <p className="dev-label">Commits (Past 7 Days)</p>
           <p className="dev-value green">{totalCommits}</p>
           <div className="dev-chart">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData}>
-                <XAxis dataKey="day" />
-                <Tooltip />
-                <Bar dataKey="commits" fill="#10B981" radius={[6, 6, 0, 0]} />
+            <ResponsiveContainer width="100%" height={150}>
+              <BarChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12 }} />
+                <Tooltip
+                  formatter={v => [`${v} commit${v === 1 ? '' : 's'}`, '']}
+                  cursor={{ fill: 'rgba(16, 185, 129, 0.1)' }}
+                />
+                <Bar dataKey="commits" radius={[6, 6, 0, 0]}>
+                  {chartData.map((entry, i) => (
+                    <Cell key={i} fill={entry.commits === 0 ? '#d1d5db' : '#10B981'} />
+                  ))}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -112,10 +149,14 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
       </div>
 
       <div className="dev-footer center">
-        <a href={`https://github.com/${username}`} target="_blank" rel="noopener noreferrer">
-          <button className="btn github-btn">
-            <Github size={16} style={{ marginRight: '8px' }} /> View GitHub Profile
-          </button>
+        <a
+          className="btn github-btn"
+          href={`https://github.com/${username}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Github size={16} style={{ marginRight: '8px' }} />
+          View GitHub Profile
         </a>
       </div>
     </motion.div>
