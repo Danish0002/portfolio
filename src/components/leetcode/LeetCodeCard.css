@@ -8,24 +8,22 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 500px;/* Increased height */
+  height: 500px; /* Increased height */
   justify-content: space-between; /* Distribute space evenly */
-  
 }
 
 .card-title {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  
 }
 
 .card-subtitle {
   color: #888;
   margin-bottom: 1.5rem;
-  
 }
-a{
+
+a {
   text-decoration: none;
 }
 
@@ -35,7 +33,6 @@ a{
   justify-content: space-between;
   flex-wrap: wrap;
   flex-grow: 1; /* Ensure the section grows to fill the available height */
-  
 }
 
 .leetcode-box {
@@ -46,19 +43,16 @@ a{
   padding: 1rem;
   box-sizing: border-box;
   background-color: #f9fafb;
-  
 }
 
 .card-label {
   font-weight: 600;
   margin-bottom: 8px;
-  
 }
 
 .card-value {
   font-size: 32px;
   margin-bottom: 16px;
-  
 }
 
 .card-list {
@@ -109,7 +103,6 @@ a{
   justify-content: center; /* Center the button horizontally */
   align-items: center; /* Center the button vertically */
   height: 50px; /* Set a fixed height to maintain vertical centering */
-  
 }
 
 .btn {
@@ -144,6 +137,26 @@ a{
   .leetcode-box {
     flex: 1 1 100%;
     max-width: 100%;
-    
+    margin-bottom: 16px; /* Add spacing between boxes on small screens */
+  }
+
+  .card-title {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .card-subtitle {
+    font-size: 14px; /* Adjust font size for subtitle */
+  }
+
+  .card-value {
+    font-size: 28px; /* Adjust value font size */
+  }
+
+  .btn {
+    padding: 8px 16px; /* Reduce button padding */
+  }
+
+  .chart-container {
+    height: 150px; /* Reduce chart container height */
   }
 }
