@@ -130,18 +130,28 @@ a{
   background-color: #1f2937;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .dev-card {
-    max-width: 100%;
-    padding: 1.4rem;
+    padding: 1.6rem;
+    height: auto; /* allow height to expand as needed */
   }
 
   .dev-section {
     flex-direction: column;
+    gap: 1.2rem;
   }
 
   .dev-box {
     flex: 1 1 100%;
     min-width: 100%;
+  }
+
+  .dev-chart {
+    height: 150px; /* slightly taller for mobile readability */
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
   }
 }
