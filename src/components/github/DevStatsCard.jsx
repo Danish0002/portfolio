@@ -15,7 +15,7 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
   const [totalRepos, setTotalRepos] = useState(0);
   const [topRepos, setTopRepos] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const token = import.meta.env.GITHUB_TOKEN;
+  const token = import.meta.env.VITE_GITHUB_TOKEN;
 
   // Compute ISO dates for last 7 days (oldest → newest)
   const dates = React.useMemo(() => {
@@ -29,7 +29,7 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
 
   useEffect(() => {
     if (!token) {
-      console.error("Missing GITHUB_TOKEN");
+      console.error("Missing VITE_GITHUB_TOKEN");
       return;
     }
 
