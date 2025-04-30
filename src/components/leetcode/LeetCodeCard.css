@@ -1,80 +1,91 @@
+/* LeetCodeCard.css - Responsive like .dev-card */
 .leetCode-card, .leetcode-card {
-  background: #fff;
+  width: 100%;
+  max-width: 550px;
+  background: #ffffff;
   border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  color: #000;
-  font-family: sans-serif;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #1f2937;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%; /* allow flexible height */
-  max-height: 650px;
+  height: 451px;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
-.card-title {
-  font-size: 24px;
+.card-title, .dev-card-title {
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
+  color: #111827;
   overflow-wrap: break-word;
 }
 
-.card-subtitle {
-  color: #888;
-  margin-bottom: 1.5rem;
-  font-size: 16px;
+.card-subtitle, .dev-card-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 1.6rem;
 }
 
-a {
-  text-decoration: none;
-}
-
-.leetcode-section {
+.leetcode-section, .dev-section {
   display: flex;
-  gap: 24px;
-  justify-content: space-between;
+  gap: 1.5rem;
   flex-wrap: wrap;
   flex-grow: 1;
+  justify-content: space-between;
 }
 
-.leetcode-box {
+.leetcode-box, .dev-box {
   flex: 1 1 45%;
-  min-width: 220px;
-  border: 1px solid #eee;
+  min-width: 230px;
+  background-color: #f9fafb;
   border-radius: 12px;
   padding: 1rem;
   box-sizing: border-box;
-  background-color: #f9fafb;
   display: flex;
   flex-direction: column;
 }
 
-.card-label {
+.card-label, .dev-label {
+  font-size: 0.95rem;
   font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 14px;
+  color: #374151;
+  margin-bottom: 0.3rem;
 }
 
-.card-value {
-  font-size: 32px;
-  margin-bottom: 16px;
+.card-value, .dev-value {
+  font-size: 1.9rem;
+  font-weight: bold;
+  margin-bottom: 0.6rem;
   line-height: 1;
 }
 
-.card-list {
+.card-value.green, .dev-value.green {
+  color: #10B981;
+}
+
+.card-list, .dev-list {
   list-style: none;
-  padding: 0;
+  padding-left: 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.5;
   margin: 0;
   flex-grow: 1;
   overflow: auto;
 }
 
-.card-list li {
-  margin-bottom: 10px;
-  font-size: 16px;
-  overflow-wrap: break-word;
+.card-list li a, .dev-list li a {
+  text-decoration: none;
+  color: #4b5563;
+  transition: color 0.3s ease;
+}
+
+.card-list li a:hover, .dev-list li a:hover {
+  color: #10b981;
 }
 
 .progress-bar {
@@ -91,74 +102,70 @@ a {
   border-radius: 6px;
 }
 
-.easy .bar {
-  background: #4caf50;
-}
+.easy .bar { background: #4caf50; }
+.medium .bar { background: #ffc107; }
+.hard .bar { background: #f44336; }
 
-.medium .bar {
-  background: #ffc107;
-}
-
-.hard .bar {
-  background: #f44336;
-}
-
-.chart-container {
+.chart-container, .dev-chart {
   width: 100%;
-  height: 200px;
-  margin-top: 12px;
+  height: 120px;
+  margin-top: 1rem;
 }
 
-.card-footer {
-  margin-top: 24px;
+.hover-info, .loading {
+  font-size: 1rem;
+  color: #374151;
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+.card-footer, .dev-footer.center {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 50px;
+  margin-top: 24px;
 }
+
+a { text-decoration: none; }
 
 .btn {
-  padding: 10px 20px;
-  background: #FFA116;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
 }
 
-.btn:hover {
-  background: #ff8c00;
+.btn.github-btn {
+  background-color: #111827;
+  color: #ffffff;
+  border: none;
 }
 
-.error {
-  color: red;
+.btn.github-btn:hover {
+  background-color: #1f2937;
 }
 
-/* Responsive styles for small screens */
-@media (max-width: 768px) {
+.error { color: red; }
+
+/* Responsive adjustments at 1024px for mobile/tablet */
+@media (max-width: 1024px) {
+  .leetcode-card {
+    padding: 1.6rem;
+    height: auto;
+  }
+
   .leetcode-section {
     flex-direction: column;
+    gap: 1.2rem;
   }
 
   .leetcode-box {
     flex: 1 1 100%;
-    max-width: 100%;
-    margin-bottom: 16px;
-  }
-
-  .card-title {
-    font-size: 20px;
-  }
-
-  .card-subtitle {
-    font-size: 14px;
-    margin-bottom: 1rem;
-  }
-
-  .card-value {
-    font-size: 28px;
+    min-width: 100%;
   }
 
   .chart-container {
@@ -166,56 +173,7 @@ a {
   }
 
   .btn {
-    padding: 8px 16px;
-  }
-}
-
-/* Ultra-small screens */
-@media (max-width: 480px) {
-  .leetcode-card {
-    padding: 16px;
-    height: auto;
-    max-height: none;
-  }
-
-  .card-title {
-    font-size: 18px;
-    margin-bottom: 0.5rem;
-  }
-
-  .card-subtitle {
-    font-size: 12px;
-    margin-bottom: 1rem;
-  }
-
-  .card-value {
-    font-size: 24px;
-  }
-
-  .card-list li {
-    font-size: 14px;
-  }
-
-  .progress-bar {
-    height: 4px;
-  }
-
-  .bar {
-    height: 4px;
-  }
-
-  .chart-container {
-    height: 120px;
-  }
-
-  .btn {
-    font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 6px;
-  }
-
-  .card-footer {
-    margin-top: 16px;
-    height: auto;
+    width: 100%;
+    justify-content: center;
   }
 }
