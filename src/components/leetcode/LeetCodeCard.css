@@ -147,51 +147,59 @@ a {
   color: red;
 }
 
-/* Tablet & small desktops */
-@media (max-width: 1024px) {
-  .leetcode-card {
-    padding: 1.6rem;
-  }
+/* Stack boxes vertically on small screens */
+@media (max-width: 768px) {
   .leetcode-section {
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
   }
+
   .leetcode-box {
     flex: 1 1 100%;
     min-width: 100%;
+    margin-bottom: 16px;
   }
+
   .chart-container {
     height: 150px;
   }
+
   .btn {
     width: 100%;
     justify-content: center;
   }
 }
 
-/* Mobile phones */
+/* Further tweaks for very small phones */
 @media (max-width: 480px) {
   .leetcode-card {
     padding: 1rem;
   }
+
   .card-title {
     font-size: 1.25rem;
   }
+
   .card-subtitle {
     font-size: 0.875rem;
   }
+
   .card-value {
     font-size: 1.5rem;
   }
+
   .card-list {
     font-size: 0.875rem;
   }
+
   .progress-bar {
     height: 4px;
   }
+
   .chart-container {
     height: 120px;
   }
+
   .btn {
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
