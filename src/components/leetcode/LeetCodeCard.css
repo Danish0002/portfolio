@@ -1,91 +1,68 @@
-/* LeetCodeCard.css - Responsive like .dev-card */
-.leetCode-card, .leetcode-card {
-  width: 100%;
-  max-width: 550px;
-  background: #ffffff;
+.leetcode-card {
+  background: #fff;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   padding: 24px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #1f2937;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  color: black;
+  font-family: sans-serif;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 451px;
-  box-sizing: border-box;
-  overflow: hidden;
+  height: 500px; /* Increased height */
+  justify-content: space-between; /* Distribute space evenly */
 }
 
-.card-title, .dev-card-title {
-  font-size: 1.5rem;
+.card-title {
+  font-size: 24px;
   font-weight: 700;
-  margin-bottom: 0.3rem;
-  color: #111827;
-  overflow-wrap: break-word;
+  margin-bottom: 0.5rem;
 }
 
-.card-subtitle, .dev-card-subtitle {
-  font-size: 1rem;
-  color: #6b7280;
-  margin-bottom: 1.6rem;
+.card-subtitle {
+  color: #888;
+  margin-bottom: 1.5rem;
 }
 
-.leetcode-section, .dev-section {
+a {
+  text-decoration: none;
+}
+
+.leetcode-section {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  flex-grow: 1;
+  gap: 24px;
   justify-content: space-between;
+  flex-wrap: wrap;
+  flex-grow: 1; /* Ensure the section grows to fill the available height */
 }
 
-.leetcode-box, .dev-box {
+.leetcode-box {
   flex: 1 1 45%;
-  min-width: 230px;
-  background-color: #f9fafb;
+  min-width: 220px;
+  border: 1px solid #eee;
   border-radius: 12px;
   padding: 1rem;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+  background-color: #f9fafb;
 }
 
-.card-label, .dev-label {
-  font-size: 0.95rem;
+.card-label {
   font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.3rem;
+  margin-bottom: 8px;
 }
 
-.card-value, .dev-value {
-  font-size: 1.9rem;
-  font-weight: bold;
-  margin-bottom: 0.6rem;
-  line-height: 1;
+.card-value {
+  font-size: 32px;
+  margin-bottom: 16px;
 }
 
-.card-value.green, .dev-value.green {
-  color: #10B981;
-}
-
-.card-list, .dev-list {
+.card-list {
   list-style: none;
-  padding-left: 0;
-  font-size: 0.95rem;
-  color: #4b5563;
-  line-height: 1.5;
+  padding: 0;
   margin: 0;
-  flex-grow: 1;
-  overflow: auto;
 }
 
-.card-list li a, .dev-list li a {
-  text-decoration: none;
-  color: #4b5563;
-  transition: color 0.3s ease;
-}
-
-.card-list li a:hover, .dev-list li a:hover {
-  color: #10b981;
+.card-list li {
+  margin-bottom: 10px;
 }
 
 .progress-bar {
@@ -102,78 +79,84 @@
   border-radius: 6px;
 }
 
-.easy .bar { background: #4caf50; }
-.medium .bar { background: #ffc107; }
-.hard .bar { background: #f44336; }
+.easy .bar {
+  background: #4caf50;
+}
 
-.chart-container, .dev-chart {
+.medium .bar {
+  background: #ffc107;
+}
+
+.hard .bar {
+  background: #f44336;
+}
+
+.chart-container {
   width: 100%;
-  height: 120px;
-  margin-top: 1rem;
+  height: 200px;
+  margin-top: 12px;
 }
 
-.hover-info, .loading {
-  font-size: 1rem;
-  color: #374151;
-  margin-top: 1.2rem;
-  text-align: center;
-}
-
-.card-footer, .dev-footer.center {
-  display: flex;
-  justify-content: center;
+.card-footer {
   margin-top: 24px;
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  align-items: center; /* Center the button vertically */
+  height: 50px; /* Set a fixed height to maintain vertical centering */
 }
-
-a { text-decoration: none; }
 
 .btn {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 10px 20px;
+  background: #FFA116;
+  color: #fff;
+  border: none;
   border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: all 0.2s ease-in-out;
+  transition: background 0.3s ease;
   text-decoration: none;
 }
 
-.btn.github-btn {
-  background-color: #111827;
-  color: #ffffff;
-  border: none;
+.btn:hover {
+  background: #ff8c00;
+  text-decoration: none;
 }
 
-.btn.github-btn:hover {
-  background-color: #1f2937;
+.error {
+  color: red;
+  text-decoration: none;
 }
 
-.error { color: red; }
-
-/* Responsive adjustments at 1024px for mobile/tablet */
-@media (max-width: 1024px) {
-  .leetcode-card {
-    padding: 1.6rem;
-    height: auto;
-  }
-
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
   .leetcode-section {
     flex-direction: column;
-    gap: 1.2rem;
+    text-decoration: none;
   }
 
   .leetcode-box {
     flex: 1 1 100%;
-    min-width: 100%;
+    max-width: 100%;
+    margin-bottom: 16px; /* Add spacing between boxes on small screens */
   }
 
-  .chart-container {
-    height: 150px;
+  .card-title {
+    font-size: 20px; /* Adjust font size for smaller screens */
+  }
+
+  .card-subtitle {
+    font-size: 14px; /* Adjust font size for subtitle */
+  }
+
+  .card-value {
+    font-size: 28px; /* Adjust value font size */
   }
 
   .btn {
-    width: 100%;
-    justify-content: center;
+    padding: 8px 16px; /* Reduce button padding */
+  }
+
+  .chart-container {
+    height: 150px; /* Reduce chart container height */
   }
 }
