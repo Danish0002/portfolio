@@ -1,26 +1,30 @@
-.leetcode-card {
+.leetCode-card, .leetcode-card {
   background: #fff;
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  color: black;
+  color: #000;
   font-family: sans-serif;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 500px; /* Increased height */
-  justify-content: space-between; /* Distribute space evenly */
+  justify-content: space-between;
+  height: 100%; /* allow flexible height */
+  max-height: 650px;
+  overflow: hidden;
 }
 
 .card-title {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  overflow-wrap: break-word;
 }
 
 .card-subtitle {
   color: #888;
   margin-bottom: 1.5rem;
+  font-size: 16px;
 }
 
 a {
@@ -32,7 +36,7 @@ a {
   gap: 24px;
   justify-content: space-between;
   flex-wrap: wrap;
-  flex-grow: 1; /* Ensure the section grows to fill the available height */
+  flex-grow: 1;
 }
 
 .leetcode-box {
@@ -43,26 +47,34 @@ a {
   padding: 1rem;
   box-sizing: border-box;
   background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
 }
 
 .card-label {
   font-weight: 600;
   margin-bottom: 8px;
+  font-size: 14px;
 }
 
 .card-value {
   font-size: 32px;
   margin-bottom: 16px;
+  line-height: 1;
 }
 
 .card-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-grow: 1;
+  overflow: auto;
 }
 
 .card-list li {
   margin-bottom: 10px;
+  font-size: 16px;
+  overflow-wrap: break-word;
 }
 
 .progress-bar {
@@ -100,9 +112,9 @@ a {
 .card-footer {
   margin-top: 24px;
   display: flex;
-  justify-content: center; /* Center the button horizontally */
-  align-items: center; /* Center the button vertically */
-  height: 50px; /* Set a fixed height to maintain vertical centering */
+  justify-content: center;
+  align-items: center;
+  height: 50px;
 }
 
 .btn {
@@ -114,49 +126,96 @@ a {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  text-decoration: none;
 }
 
 .btn:hover {
   background: #ff8c00;
-  text-decoration: none;
 }
 
 .error {
   color: red;
-  text-decoration: none;
 }
 
-/* Responsive layout for smaller screens */
+/* Responsive styles for small screens */
 @media (max-width: 768px) {
   .leetcode-section {
     flex-direction: column;
-    text-decoration: none;
   }
 
   .leetcode-box {
     flex: 1 1 100%;
     max-width: 100%;
-    margin-bottom: 16px; /* Add spacing between boxes on small screens */
+    margin-bottom: 16px;
   }
 
   .card-title {
-    font-size: 20px; /* Adjust font size for smaller screens */
+    font-size: 20px;
   }
 
   .card-subtitle {
-    font-size: 14px; /* Adjust font size for subtitle */
+    font-size: 14px;
+    margin-bottom: 1rem;
   }
 
   .card-value {
-    font-size: 28px; /* Adjust value font size */
-  }
-
-  .btn {
-    padding: 8px 16px; /* Reduce button padding */
+    font-size: 28px;
   }
 
   .chart-container {
-    height: 150px; /* Reduce chart container height */
+    height: 150px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+  }
+}
+
+/* Ultra-small screens */
+@media (max-width: 480px) {
+  .leetcode-card {
+    padding: 16px;
+    height: auto;
+    max-height: none;
+  }
+
+  .card-title {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+    margin-bottom: 1rem;
+  }
+
+  .card-value {
+    font-size: 24px;
+  }
+
+  .card-list li {
+    font-size: 14px;
+  }
+
+  .progress-bar {
+    height: 4px;
+  }
+
+  .bar {
+    height: 4px;
+  }
+
+  .chart-container {
+    height: 120px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+
+  .card-footer {
+    margin-top: 16px;
+    height: auto;
   }
 }
