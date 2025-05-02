@@ -149,7 +149,7 @@ const Hero = () => {
 
         {/* CONTACT BUTTON */}
         <motion.a
-          href="/#contact"
+          href="SCV.pdf"
           className="contactLink"
           animate={{
             x: [200, 0],
