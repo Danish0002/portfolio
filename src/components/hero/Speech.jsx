@@ -1,5 +1,6 @@
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "motion/react";
+import './Speech.css'
 
 const Speech = () => {
   return (
