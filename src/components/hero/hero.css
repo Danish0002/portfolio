@@ -182,12 +182,18 @@
   align-items: center;
   justify-content: center;
 }
+h2{
+  font-size: 2rem;
+}
+.description{
+  font-size: 1.5rem;
+}
 
-/* @media (max-width: 1536px) {
+@media (max-width: 1536px) {
   .hTitle {
     font-size: 72px;
   }
-} */
+}
 
 /* @media (max-width: 1280px) {
   .bg {
@@ -223,44 +229,59 @@
   }
 }
 
+
 @media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-  }
-
-  .bg {
-    height: 60%;
-  }
-
-  .hSection {
-    width: 100%;
-  }
-
-  .hSection.left {
-    align-items: center;
-    text-align: center;
-    gap: 36px;
-  }
-
+  
   .hTitle {
-    font-size: 48px;
+    margin-top: 380px;
+    font-size: 35px;
   }
-
-  .awards {
-    width: 100%;
-  }
-
-  .awardList {
-    justify-content: center;
-  }
-
-  .hSection.right {
-    justify-content: end;
-  }
-
-  .follow,
-  .bubbleContainer,
-  .certificate {
+  .descTittle{
     display: none;
   }
+  .description{
+    display: none;
+  }
+  .hero{
+    height: 100%;
+    width: 100%;
+    align-items:center;
+    justify-content: center;
+
+  }
+
+  /* .hSection.right{
+    height: 200%;
+  } */
+  
+  .contactLink{
+    margin-top: 70px;
+    /* align-items:end; */
+    /* justify-content: end; */
+    /* position: absolute; */
+    /* top: 400px; */
+    /* position: relative; */
+
+  }
+  .contactButton{
+    scale: 0.8;
+    /* position: absolute; */
+    top: 90px;
+    left: 35px;
+
+  }
+  .follow{
+    scale: 1.7;
+    margin-top: 25px;
+    
+  }
+  .cSection:last-child  {
+    margin: 0px;
+    padding: 0px;
+    width: 80%;
+  }
+
+  
+
+  
 }
