@@ -231,10 +231,16 @@ h2{
 
 
 @media (max-width: 768px) {
-  
+  .hero{
+    height: 50vh;
+    width: 50vh;
+    align-items:center;
+    justify-content: center;
+
+  }  
   .hTitle {
-    margin-top: 380px;
-    font-size: 35px;
+    margin-top: 390px;
+    font-size: 32px;
   }
   .descTittle{
     display: none;
@@ -242,20 +248,20 @@ h2{
   .description{
     display: none;
   }
-  .hero{
-    height: 100%;
-    width: 100%;
-    align-items:center;
-    justify-content: center;
 
+
+  .hSection.right{
+    /* height: 200%; */
+    /* height: 50%; */
+    /* margin-top: -150%; */
+    /* align-items: end; */
+    justify-content: flex-end;
+    /* padding: 0px; */
   }
-
-  /* .hSection.right{
-    height: 200%;
-  } */
   
   .contactLink{
     margin-top: 70px;
+    justify-content: end;
     /* align-items:end; */
     /* justify-content: end; */
     /* position: absolute; */
@@ -280,8 +286,5 @@ h2{
     padding: 0px;
     width: 80%;
   }
-
-  
-
   
 }
