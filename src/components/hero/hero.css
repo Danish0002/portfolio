@@ -1,5 +1,6 @@
 .hero {
   height: 100vh;
+  /* width: 100%; */
   overflow: hidden;
   display: flex;
   padding: 20px;
@@ -49,13 +50,13 @@
 }
 
 .awards {
-  width: 30%;
+  width: 35%;
 }
 
 .awards p {
-  font-size: 14px;
+  font-size: 16px;
   color: #ddd;
-  margin: 16px 0px;
+  margin: 40px 0px;
 }
 
 .awardList {
@@ -87,6 +88,7 @@
   padding: 16px;
   background-color: #2f204e;
   border-bottom-right-radius: 10px;
+  
 }
 
 .follow img {
@@ -185,13 +187,34 @@
 h2{
   font-size: 2rem;
 }
+.descTittle{
+  color: white;
+}
 .description{
-  font-size: 1.5rem;
+  font-size: 20px;
 }
 
 @media (max-width: 1536px) {
+  
   .hTitle {
-    font-size: 72px;
+    font-size: 82px;
+  }
+  .follow{
+    scale: 1.9;
+    margin-top: 105px;
+    
+  }
+  .descTittle{
+    /* width: 200%; */
+    font-size: 40px;
+  }
+  .description{
+    font-size: 20px;
+    /* display: none; */
+  }
+
+  .contactButton{
+    scale: 0.8;
   }
 }
 
@@ -225,22 +248,40 @@ h2{
   }
 
   .hTitle {
-    font-size: 72px;
+    font-size: 65px;
   }
+
+  .follow{
+    scale: 1.8;
+    margin-top: 76px;
+    
+  }
+  .descTittle{
+    position: relative;
+    top: -40px;
+    /* width: 300%; */
+    font-size: 40px;
+    /* color: white; */
+  }
+  .description{
+    display: none;
+  }
+  .contactButton{
+    scale: 0.8;
+    /* position: absolute; */
+    top: -350px;
+    left: 35px;
+
+    }
+  
 }
 
 
 @media (max-width: 768px) {
-  .hero{
-    height: 50vh;
-    width: 50vh;
-    align-items:center;
-    justify-content: center;
-
-  }  
+  
   .hTitle {
-    margin-top: 390px;
-    font-size: 32px;
+    margin-top: 357px;
+    font-size: 35px;
   }
   .descTittle{
     display: none;
@@ -248,20 +289,20 @@ h2{
   .description{
     display: none;
   }
+  .hero{
+    height: 100%;
+    width: 100%;
+    align-items:center;
+    justify-content: center;
 
-
-  .hSection.right{
-    /* height: 200%; */
-    /* height: 50%; */
-    /* margin-top: -150%; */
-    /* align-items: end; */
-    justify-content: flex-end;
-    /* padding: 0px; */
   }
+
+  /* .hSection.right{
+    height: 200%;
+  } */
   
   .contactLink{
     margin-top: 70px;
-    justify-content: end;
     /* align-items:end; */
     /* justify-content: end; */
     /* position: absolute; */
@@ -277,7 +318,7 @@ h2{
 
   }
   .follow{
-    scale: 1.7;
+    scale: 1.6;
     margin-top: 25px;
     
   }
@@ -286,5 +327,8 @@ h2{
     padding: 0px;
     width: 80%;
   }
+
+  
+
   
 }
