@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import "./hero.css";
 import Speech from "./Speech";
-import { motion } from "motion/react";
+import { motion } from 'framer-motion';
 import Shape from "./Shape";
 import { Suspense } from "react";
 
@@ -57,8 +57,8 @@ const Hero = () => {
           animate="animate"
           className="awards"
         >
-          <motion.h2 variants={awardVariants}>Web & Android Developer</motion.h2>
-          <motion.p variants={awardVariants}>
+          <motion.h2 className="descTittle" variants={awardVariants}>Web & Android Developer</motion.h2>
+          <motion.p className="description" variants={awardVariants}>
           Trusted Web & Android Developer delivering tailored solutions for businesses and startups.
           </motion.p>
 
@@ -72,7 +72,7 @@ const Hero = () => {
 
         
         {/* SCROLL SVG */}
-        <motion.a
+        {/* <motion.a
           animate={{ y: [0, 5], opacity: [0, 1, 0] }}
           transition={{
             repeat: Infinity,
@@ -107,7 +107,7 @@ const Hero = () => {
               strokeLinecap="round"
             />
           </svg>
-        </motion.a>
+        </motion.a> */}
       </div>
       <div className="hSection right">
         {/* FOLLOW */}
@@ -131,7 +131,7 @@ const Hero = () => {
           </motion.div>
         </motion.div>
         {/* BUBBLE */}
-        <Speech />
+        {/* <Speech /> */}
         {/* CERTIFICATE */}
 
         {/* <motion.div
