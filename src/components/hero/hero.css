@@ -253,7 +253,7 @@ h2{
   }
 
   .follow{
-    scale: 1.8;
+    scale: 1.6;
     margin-top: 76px;
     
   }
@@ -268,7 +268,7 @@ h2{
     display: none;
   }
   .contactButton{
-    scale: 0.8;
+    scale: 0.6;
     /* position: absolute; */
     top: -350px;
     left: 35px;
