@@ -7,26 +7,33 @@ const containerVariants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.25,
-      delayChildren: 0.1,
+      staggerChildren: 0.3,
     },
   },
 };
 
-const itemVariants = {
-  hidden: (i) => ({
-    opacity: 0,
-    x: i % 2 === 0 ? 100 : -100,
-  }),
-  show: (i) => ({
+const headingVariants = {
+  hidden: { opacity: 0, y: -30 },
+  show: {
     opacity: 1,
-    x: 0,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    rotateY: -90,
+  },
+  show: {
+    opacity: 1,
+    rotateY: 0,
     transition: {
-      delay: i * 0.2,
-      duration: 0.6,
-      ease: "easeOut",
+      duration: 0.8,
+      ease: 'easeOut',
     },
-  }),
+  },
 };
 
 export default function StatsSection() {
@@ -43,10 +50,7 @@ export default function StatsSection() {
       >
         <motion.h2
           className="text-3xl font-semibold text-center"
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            show: { opacity: 1, x: 0, transition: { duration: 0.6 } },
-          }}
+          variants={headingVariants}
         >
           Developer Profiles
         </motion.h2>
@@ -56,8 +60,10 @@ export default function StatsSection() {
             <motion.div
               key={index}
               className="flex-1 min-w-[300px] sm:max-w-[48%]"
-              variants={itemVariants}
-              custom={index}
+              style={{ transformStyle: 'preserve-3d' }}
+              variants={cardVariants}
+              whileHover={{ rotateY: 5 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 15 }}
             >
               {Card}
             </motion.div>
