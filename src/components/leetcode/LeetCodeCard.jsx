@@ -104,7 +104,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center p-6 h-64">
+      <div className="flex items-center justify-center p-6 h-full">
         <span className="text-gray-500">Loading…</span>
       </div>
     );
@@ -113,7 +113,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
   if (error) {
     return (
       <div className="bg-red-100 border border-red-400 text-red-700 p-4 rounded-lg m-4">
-        <h3 className="text-lg font-semibold">Something went wrong </h3>
+        <h3 className="text-lg font-semibold">Something went wrong 😓</h3>
         <p className="mt-1">{error}</p>
       </div>
     );
@@ -126,12 +126,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
   }
 
   const totalSolved = stats.easy + stats.medium + stats.hard;
-  const progressWidth = levelCount =>
-    totalSolved > 0 ? `${((levelCount / totalSolved) * 100).toFixed(1)}%` : '0%';
+  const progressWidth = count =>
+    totalSolved > 0 ? `${((count / totalSolved) * 100).toFixed(1)}%` : '0%';
 
   return (
     <motion.div
-      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 max-w-xl w-full flex flex-col justify-between min-h-[480px]"
+      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl aspect-[4/3] flex flex-col justify-between"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -145,7 +145,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
       <div className="flex flex-wrap gap-4 flex-grow my-4">
         {/* Solved Problems */}
-        <div className="bg-gray-50 rounded-xl p-4 flex-1 min-w-[220px]">
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
           <p className="text-sm font-semibold text-gray-700">Solved Problems</p>
           <p className="text-3xl font-bold text-emerald-500 my-2">{totalSolved}</p>
           <ul className="space-y-3 text-sm text-gray-600">
@@ -173,12 +173,15 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </div>
 
         {/* Contest Graph */}
-        <div className="bg-gray-50 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col justify-between">
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col justify-between">
           <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
           <div className="flex-grow">
             {contestHistory.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={contestHistory} margin={{ top: 10, right: 20, left: -10, bottom: 20 }}>
+                <LineChart
+                  data={contestHistory}
+                  margin={{ top: 10, right: 20, left: -10, bottom: 20 }}
+                >
                   <CartesianGrid stroke="#e2e8f0" strokeDasharray="5 5" />
                   <XAxis
                     dataKey="name"
@@ -210,7 +213,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </div>
       </div>
 
-      <div className="text-center mt-4">
+      <footer className="text-center mt-4">
         <a
           href={`https://leetcode.com/${username}`}
           target="_blank"
@@ -219,7 +222,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         >
           View LeetCode Profile
         </a>
-      </div>
+      </footer>
     </motion.div>
   );
 }
