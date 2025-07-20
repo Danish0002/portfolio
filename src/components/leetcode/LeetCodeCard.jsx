@@ -116,7 +116,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
   return (
     <motion.div
-      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl flex flex-col justify-between h-[460px]"
+      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl flex flex-col justify-between h-[480px]"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
@@ -151,16 +151,40 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
           </ul>
         </div>
 
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
-          <p className="text-sm font-semibold text-gray-700 mb-1">Contest Rating Graph</p>
-          <div className="w-full h-28">
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col justify-between">
+          <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
+          <div className="w-full h-40">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={contestHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fontSize: 10 }} angle={-25} textAnchor="end" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="rating" stroke="#FFA116" strokeWidth={1.5} />
+              <LineChart
+                data={contestHistory}
+                margin={{ top: 10, right: 20, left: -10, bottom: 20 }}
+              >
+                <CartesianGrid stroke="#e2e8f0" strokeDasharray="5 5" />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 11, fill: '#4B5563' }}
+                  angle={-25}
+                  textAnchor="end"
+                  height={40}
+                />
+                <YAxis
+                  tick={{ fontSize: 11, fill: '#4B5563' }}
+                  domain={['auto', 'auto']}
+                  width={40}
+                />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#fff', borderColor: '#d1d5db', fontSize: '0.8rem' }}
+                  labelStyle={{ color: '#6b7280' }}
+                  cursor={{ stroke: '#d1d5db', strokeWidth: 1 }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="rating"
+                  stroke="#FFA116"
+                  strokeWidth={2}
+                  dot={{ r: 3 }}
+                  activeDot={{ r: 5, strokeWidth: 2, fill: '#FACC15', stroke: '#FBBF24' }}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
