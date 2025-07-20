@@ -10,34 +10,8 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-const PROFILE_QUERY = `
-  query getUserProfile($username: String!) {
-    matchedUser(username: $username) {
-      username
-      profile {
-        reputation
-        ranking
-      }
-      submitStatsGlobal {
-        acSubmissionNum {
-          difficulty
-          count
-        }
-      }
-    }
-  }
-`;
-
-const CONTEST_QUERY = `
-  query userContestRankingInfo($username: String!) {
-    userContestRankingHistory(username: $username) {
-      contest {
-        title
-      }
-      rating
-    }
-  }
-`;
+const PROFILE_QUERY = `...`;
+const CONTEST_QUERY = `...`;
 
 export default function LeetCodeCard({ username = 'Danish00z' }) {
   const [profile, setProfile] = useState(null);
@@ -104,7 +78,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
   if (error)
     return (
       <div className="text-red-500 p-4">
-        <h3 className="text-lg font-semibold">Something went wrong 😓</h3>
+        <h3 className="text-lg font-semibold">Something went wrong </h3>
         <p>{error}</p>
       </div>
     );
@@ -124,9 +98,10 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
       </p>
 
-      <div className="flex flex-wrap justify-between gap-4 flex-grow">
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
-          <p className="text-sm font-semibold text-gray-700 mb-1">Solved Problems</p>
+      <div className="flex flex-wrap gap-4 flex-grow">
+        {/* Solved Section */}
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] h-full overflow-hidden">
+          <p className="text-sm font-semibold text-gray-700 mb-2">Solved Problems</p>
           <p className="text-3xl font-bold text-emerald-500 mb-2">{totalSolved}</p>
           <ul className="text-sm text-gray-600 space-y-2">
             {['easy', 'medium', 'hard'].map(level => (
@@ -134,8 +109,16 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                 {level}: {stats[level]}
                 <div className="w-full h-2 bg-gray-300 rounded mt-1">
                   <div
-                    className={`h-2 rounded ${level === 'easy' ? 'bg-green-500' : level === 'medium' ? 'bg-yellow-400' : 'bg-red-500'}`}
-                    style={{ width: `${(stats[level] / totalSolved) * 100 || 0}%` }}
+                    className={`h-2 rounded ${
+                      level === 'easy'
+                        ? 'bg-green-500'
+                        : level === 'medium'
+                        ? 'bg-yellow-400'
+                        : 'bg-red-500'
+                    }`}
+                    style={{
+                      width: `${(stats[level] / totalSolved) * 100 || 0}%`,
+                    }}
                   ></div>
                 </div>
               </li>
@@ -143,22 +126,34 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
           </ul>
         </div>
 
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
-          <p className="text-sm font-semibold text-gray-700 mb-1">Contest Rating Graph</p>
+        {/* Chart Section */}
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] h-full overflow-hidden">
+          <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
           <div className="w-full h-28">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={contestHistory}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" tick={{ fontSize: 10 }} angle={-25} textAnchor="end" />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fontSize: 10 }}
+                  angle={-25}
+                  textAnchor="end"
+                />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="rating" stroke="#FFA116" strokeWidth={1.5} />
+                <Line
+                  type="monotone"
+                  dataKey="rating"
+                  stroke="#FFA116"
+                  strokeWidth={1.5}
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
+      {/* Link */}
       <div className="flex justify-center mt-6">
         <a
           href={`https://leetcode.com/${username}`}
