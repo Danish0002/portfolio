@@ -173,9 +173,9 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </div>
 
         {/* Contest Graph */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col justify-between">
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
           <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
-          <div className="flex-grow">
+          <div className="w-full h-40 sm:h-48">
             {contestHistory.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
