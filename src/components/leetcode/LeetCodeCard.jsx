@@ -1,169 +1,75 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from 'recharts';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import LeetCodeCard from '../leetcode/LeetCodeCard';
+import DevStatsCard from '../github/DevStatsCard';
 
-const PROFILE_QUERY = `...`;
-const CONTEST_QUERY = `...`;
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 
-export default function LeetCodeCard({ username = 'Danish00z' }) {
-  const [profile, setProfile] = useState(null);
-  const [stats, setStats] = useState({ easy: 0, medium: 0, hard: 0 });
-  const [contestHistory, setContestHistory] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const headingVariants = {
+  hidden: { opacity: 0, y: -30 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const [profileRes, contestRes] = await Promise.all([
-          fetch('../../api/leetcode', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: PROFILE_QUERY, variables: { username } }),
-          }),
-          fetch('../../api/leetcode', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: CONTEST_QUERY, variables: { username } }),
-          }),
-        ]);
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    rotateY: -90,
+  },
+  show: {
+    opacity: 1,
+    rotateY: 0,
+    transition: {
+      duration: 0.8,
+      ease: 'easeOut',
+    },
+  },
+};
 
-        const profileJson = await profileRes.json();
-        const contestJson = await contestRes.json();
-
-        const user = profileJson.data?.matchedUser;
-        if (!user) throw new Error('User not found');
-
-        setProfile(user.profile);
-        const byDiff = user.submitStatsGlobal.acSubmissionNum.reduce(
-          (acc, { difficulty, count }) => {
-            acc[difficulty.toLowerCase()] = count;
-            return acc;
-          },
-          {}
-        );
-        setStats({
-          easy: byDiff.easy || 0,
-          medium: byDiff.medium || 0,
-          hard: byDiff.hard || 0,
-        });
-
-        const maxContests = 20;
-        const contestHistory = contestJson.data?.userContestRankingHistory
-          ?.filter(d => d.rating !== null)
-          ?.map((entry, index) => ({
-            name: `C${index + 1}`,
-            rating: Math.round(entry.rating),
-          }))
-          ?.slice(-maxContests) || [];
-
-        setContestHistory(contestHistory);
-      } catch (e) {
-        setError(e.message);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [username]);
-
-  if (loading) return <div className="p-4">Loading…</div>;
-  if (error)
-    return (
-      <div className="text-red-500 p-4">
-        <h3 className="text-lg font-semibold">Something went wrong </h3>
-        <p>{error}</p>
-      </div>
-    );
-  if (!profile) return <div className="p-4">No data</div>;
-
-  const totalSolved = stats.easy + stats.medium + stats.hard;
+export default function StatsSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { margin: '-100px' });
 
   return (
-    <motion.div
-      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl flex flex-col justify-between h-[460px]"
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <h2 className="text-xl font-bold text-gray-900 mb-1">LeetCode Profile</h2>
-      <p className="text-sm text-gray-500 mb-6">
-        {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
-      </p>
-
-      <div className="flex flex-wrap gap-4 flex-grow">
-        {/* Solved Section */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] h-full overflow-hidden">
-          <p className="text-sm font-semibold text-gray-700 mb-2">Solved Problems</p>
-          <p className="text-3xl font-bold text-emerald-500 mb-2">{totalSolved}</p>
-          <ul className="text-sm text-gray-600 space-y-2">
-            {['easy', 'medium', 'hard'].map(level => (
-              <li key={level} className="capitalize">
-                {level}: {stats[level]}
-                <div className="w-full h-2 bg-gray-300 rounded mt-1">
-                  <div
-                    className={`h-2 rounded ${
-                      level === 'easy'
-                        ? 'bg-green-500'
-                        : level === 'medium'
-                        ? 'bg-yellow-400'
-                        : 'bg-red-500'
-                    }`}
-                    style={{
-                      width: `${(stats[level] / totalSolved) * 100 || 0}%`,
-                    }}
-                  ></div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Chart Section */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] h-full overflow-hidden">
-          <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
-          <div className="w-full h-28">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={contestHistory}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  tick={{ fontSize: 10 }}
-                  angle={-25}
-                  textAnchor="end"
-                />
-                <YAxis />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="rating"
-                  stroke="#FFA116"
-                  strokeWidth={1.5}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </div>
-
-      {/* Link */}
-      <div className="flex justify-center mt-6">
-        <a
-          href={`https://leetcode.com/${username}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-yellow-500 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition"
+    <section ref={ref} className="flex justify-center px-4 py-8 bg-background">
+      <motion.div
+        className="w-full max-w-6xl flex flex-col items-center gap-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? 'show' : 'hidden'}
+      >
+        <motion.h2
+          className="text-3xl font-semibold text-center"
+          variants={headingVariants}
         >
-          View LeetCode Profile
-        </a>
-      </div>
-    </motion.div>
+          Developer Profiles
+        </motion.h2>
+
+        <div className="flex flex-col sm:flex-row sm:flex-wrap gap-6 w-full justify-center">
+          {[<LeetCodeCard key="1" />, <DevStatsCard key="2" />].map((Card, index) => (
+            <motion.div
+              key={index}
+              className="flex-1 min-w-[300px] sm:max-w-[48%]"
+              style={{ transformStyle: 'preserve-3d' }}
+              variants={cardVariants}
+              whileHover={{ rotateY: 5 }}
+              transition={{ type: 'spring', stiffness: 100, damping: 15 }}
+            >
+              {Card}
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
   );
 }
