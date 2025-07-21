@@ -60,19 +60,33 @@ const Hero = () => {
       </div>
 
       {/* Description - hidden on small screens */}
-      <motion.div
-        variants={awardVariants}
-        initial="initial"
-        animate="animate"
-        className="hidden md:block absolute bottom-32 left-6 z-20 space-y-2 max-w-md"
-      >
-        <motion.h2 className="text-xl text-white font-semibold" variants={awardVariants}>
-          Web & Android Developer
-        </motion.h2>
-        <motion.p className="text-white text-sm" variants={awardVariants}>
-          Trusted Web & Android Developer delivering tailored solutions for businesses and startups.
-        </motion.p>
-      </motion.div>
+<motion.div
+  variants={awardVariants}
+  initial="initial"
+  animate="animate"
+  viewport={{ once: false, amount: 0.3 }}
+  className="hidden md:block absolute bottom-12 left-6 z-20 space-y-4 max-w-md"
+>
+  <motion.h2
+    variants={awardVariants}
+    className="text-2xl font-bold text-pink-300 tracking-wider leading-snug"
+  >
+    Web & Android Developer
+  </motion.h2>
+
+  <motion.p
+    variants={awardVariants}
+    className="text-white text-sm md:text-base leading-relaxed tracking-wide font-light"
+  >
+    Trusted Web & Android developer <br />
+    delivering tailored and impactful digital solutions. <br />
+    Focused on intuitive design, performance, and scalability <br />
+    to empower businesses and startups across platforms.
+  </motion.p>
+</motion.div>
+
+
+
 
       {/* Follow Me Section */}
       <motion.div
