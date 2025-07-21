@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import ContactSvg from "./ContactSvg";
 
+/* ───────── animation variants ───────── */
 const containerVariants = {
   hidden: {},
   visible: {
@@ -22,10 +23,11 @@ const itemVariants = {
 };
 
 const svgVariants = {
-  hidden: { rotate: -5, opacity: 0 },
+  hidden: { rotate: -5, opacity: 0, scale: 0.9 },
   visible: {
     rotate: 0,
     opacity: 1,
+    scale: 1,
     transition: { type: "spring", stiffness: 50, delay: 0.5 },
   },
 };
@@ -52,7 +54,7 @@ const Contact = () => {
         () => {
           setSuccess(true);
           setError(false);
-          form.current.reset(); // Optional: clear form after submit
+          form.current.reset();
         },
         (error) => {
           console.error(error);
@@ -63,36 +65,27 @@ const Contact = () => {
   };
 
   return (
-    <div
+    <section
       ref={ref}
-      className="min-h-screen flex flex-col md:flex-row-reverse items-center justify-center bg-[rgb(255,192,203)] px-6 py-16 gap-10"
+      className="min-h-screen grid grid-cols-1 md:grid-cols-2 items-center bg-pink-100 px-6 py-16 gap-10"
     >
-      {/* Right-side SVG */}
-      <motion.div
-        variants={svgVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="w-full md:w-1/2 flex justify-center"
-      >
-        <ContactSvg />
-      </motion.div>
-
-      {/* Left-side Form */}
+      {/* Form Column */}
       <motion.form
         ref={form}
-        onSubmit={sendEmail} 
+        onSubmit={sendEmail}
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="w-full md:w-[480px] bg-white border border-gray-200 shadow-xl rounded-2xl px-8 py-10 space-y-6"
+        className="w-full max-w-md mx-auto bg-white border border-gray-200 shadow-lg rounded-2xl p-8 space-y-6"
       >
         <motion.h1
           variants={itemVariants}
-          className="text-3xl font-bold text-gray-800 text-center"
+          className="text-2xl sm:text-3xl font-bold text-gray-800 text-center"
         >
           Let's keep in touch
         </motion.h1>
 
+        {/* Name */}
         <motion.div variants={itemVariants} className="flex flex-col">
           <label className="text-sm text-gray-600 mb-1">Name</label>
           <input
@@ -104,6 +97,7 @@ const Contact = () => {
           />
         </motion.div>
 
+        {/* Email */}
         <motion.div variants={itemVariants} className="flex flex-col">
           <label className="text-sm text-gray-600 mb-1">Email</label>
           <input
@@ -115,41 +109,46 @@ const Contact = () => {
           />
         </motion.div>
 
+        {/* Message */}
         <motion.div variants={itemVariants} className="flex flex-col">
           <label className="text-sm text-gray-600 mb-1">Message</label>
           <textarea
-            rows={6}
+            rows={5}
             name="user_message"
             required
             placeholder="Write your message..."
             className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
-          ></textarea>
+          />
         </motion.div>
 
+        {/* Submit */}
         <motion.button
           variants={itemVariants}
           type="submit"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
         >
-          Send
+          Send Message
         </motion.button>
 
-        <div className="text-center">
-          {success && (
-            <span className="text-green-600 font-medium">
-              Your message has been sent!
-            </span>
-          )}
-          {error && (
-            <span className="text-red-600 font-medium">
-              Something went wrong!
-            </span>
-          )}
+        {/* Feedback */}
+        <div className="text-center h-6">
+          {success && <p className="text-green-600">Message sent successfully!</p>}
+          {error && <p className="text-red-600">Oops, something went wrong.</p>}
         </div>
       </motion.form>
-    </div>
+
+      {/* SVG Column */}
+      <motion.div
+        variants={svgVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        className="w-full flex justify-center"
+      >
+        <ContactSvg className="w-72 h-72 md:w-96 md:h-96" />
+      </motion.div>
+    </section>
   );
 };
 
