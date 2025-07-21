@@ -35,12 +35,10 @@ const Contact = () => {
   const [error, setError] = useState(false);
   const ref = useRef();
   const form = useRef();
-
   const isInView = useInView(ref, { once: false, amount: 0.2 });
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
         import.meta.env.VITE_SERVICE_ID,
@@ -54,9 +52,10 @@ const Contact = () => {
         () => {
           setSuccess(true);
           setError(false);
+          form.current.reset(); // Optional: clear form after submit
         },
         (error) => {
-          console.log(error);
+          console.error(error);
           setError(true);
           setSuccess(false);
         }
@@ -66,10 +65,9 @@ const Contact = () => {
   return (
     <div
       ref={ref}
-      onSubmit={sendEmail}
-      className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gradient-to-br from-[#e0f7fa] to-white px-6 py-16 gap-10"
+      className="min-h-screen flex flex-col md:flex-row-reverse items-center justify-center bg-[rgb(255,192,203)] px-6 py-16 gap-10"
     >
-      {/* Left SVG */}
+      {/* Right-side SVG */}
       <motion.div
         variants={svgVariants}
         initial="hidden"
@@ -79,9 +77,10 @@ const Contact = () => {
         <ContactSvg />
       </motion.div>
 
-      {/* Right Form */}
+      {/* Left-side Form */}
       <motion.form
         ref={form}
+        onSubmit={sendEmail} 
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
@@ -99,6 +98,7 @@ const Contact = () => {
           <input
             type="text"
             name="user_username"
+            required
             placeholder="John Doe"
             className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
           />
@@ -109,6 +109,7 @@ const Contact = () => {
           <input
             type="email"
             name="user_email"
+            required
             placeholder="john@gmail.com"
             className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
           />
@@ -119,6 +120,7 @@ const Contact = () => {
           <textarea
             rows={6}
             name="user_message"
+            required
             placeholder="Write your message..."
             className="p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
           ></textarea>
@@ -126,6 +128,7 @@ const Contact = () => {
 
         <motion.button
           variants={itemVariants}
+          type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
