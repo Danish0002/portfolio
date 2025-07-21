@@ -137,7 +137,7 @@ const Hero = () => {
             </text>
             <text className="fill-black text-[24px]">
               <textPath href="#innerCirclePath" startOffset="44%">
-                Contact Me •
+                Download CV •
               </textPath>
             </text>
           </svg>
