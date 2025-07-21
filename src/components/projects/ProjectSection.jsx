@@ -37,9 +37,9 @@ const headingVariants = {
 
 const ProjectSection = () => {
   return (
-    <section className="px-4 py-10 max-w-7xl mx-auto">
+<section className="px-4 py-16 max-w-7xl mx-auto bg-gradient-to-b from-rose-300 to-white rounded-lg">
       <motion.h2
-        className="text-3xl font-semibold text-center mb-10"
+        className="text-3xl font-semibold text-center mb-10 text-gray-800"
         variants={headingVariants}
         initial="hidden"
         whileInView="show"
