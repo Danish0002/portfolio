@@ -180,7 +180,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
         {/* Contest Rating Chart */}
         <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
-          <p className="text-sm font-semibold text-gray-700 mb-1">
+          <p className="text-sm font-semibold text-gray-700 mb-8">
             Contest Rating (Last {contestHistory.length} Contests)
           </p>
           {loading ? (
