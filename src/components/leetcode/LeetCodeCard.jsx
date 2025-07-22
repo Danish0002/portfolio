@@ -111,7 +111,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
   if (error) {
     return (
       <div className="text-red-600 bg-red-50 border border-red-200 p-4 rounded-md">
-        <h3 className="text-base font-semibold">Something went wrong 😓</h3>
+        <h3 className="text-base font-semibold">Something went wrong </h3>
         <p className="text-sm mt-1">{error}</p>
       </div>
     );
