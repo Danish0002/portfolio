@@ -90,7 +90,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
         const maxContests = 20;
         const history = contestJson.data?.userContestRankingHistory
-          ?.filter(d => d.rating !== null)
+          ?.filter((d) => d.rating !== null)
           ?.map((entry, i) => ({
             name: `C${i + 1}`,
             rating: Math.round(entry.rating),
@@ -111,7 +111,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
   if (error) {
     return (
       <div className="text-red-600 bg-red-50 border border-red-200 p-4 rounded-md">
-        <h3 className="text-base font-semibold">Something went wrong 😓</h3>
+        <h3 className="text-base font-semibold">Something went wrong </h3>
         <p className="text-sm mt-1">{error}</p>
       </div>
     );
@@ -125,6 +125,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
+      style={{ maxHeight: 'none' }}
     >
       <header>
         <h2 className="text-xl font-bold text-gray-900 mb-1">LeetCode Profile</h2>
@@ -133,9 +134,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </p>
       </header>
 
-      <div className="flex flex-wrap justify-between gap-4 flex-grow">
+      <div
+        className="flex flex-wrap justify-between gap-4 flex-grow min-h-0"
+        style={{ minHeight: 'auto' }}
+      >
         {/* Solved Problems */}
-        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
+        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
           <p className="text-sm font-semibold text-gray-700 mb-1">Solved Problems</p>
           {loading ? (
             <>
@@ -150,7 +154,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
             <>
               <p className="text-3xl font-bold text-emerald-500 mb-2">{totalSolved}</p>
               <ul className="text-sm text-gray-600 space-y-2">
-                {['easy', 'medium', 'hard'].map(level => (
+                {['easy', 'medium', 'hard'].map((level) => (
                   <li key={level} className="capitalize">
                     {level}: {stats[level]}
                     <div className="w-full h-2 bg-gray-300 rounded mt-1">
@@ -175,7 +179,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </section>
 
         {/* Contest Rating Chart */}
-        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
+        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
           <p className="text-sm font-semibold text-gray-700 mb-1">
             Contest Rating (Last {contestHistory.length} Contests)
           </p>
@@ -196,17 +200,9 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                     textAnchor="end"
                     height={30}
                   />
-                  <YAxis
-                    tick={{ fontSize: 11, fill: '#6B7280' }}
-                    domain={['auto', 'auto']}
-                    width={40}
-                  />
+                  <YAxis tick={{ fontSize: 11, fill: '#6B7280' }} domain={['auto', 'auto']} width={40} />
                   <Tooltip
-                    contentStyle={{
-                      backgroundColor: '#fff',
-                      borderColor: '#e5e7eb',
-                      fontSize: '0.8rem',
-                    }}
+                    contentStyle={{ backgroundColor: '#fff', borderColor: '#e5e7eb', fontSize: '0.8rem' }}
                     labelStyle={{ color: '#4B5563' }}
                     cursor={{ stroke: '#cbd5e1', strokeWidth: 1 }}
                   />
@@ -216,12 +212,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                     stroke="#facc15"
                     strokeWidth={2}
                     dot={{ r: 3 }}
-                    activeDot={{
-                      r: 5,
-                      strokeWidth: 2,
-                      fill: '#facc15',
-                      stroke: '#fbbf24',
-                    }}
+                    activeDot={{ r: 5, strokeWidth: 2, fill: '#facc15', stroke: '#fbbf24' }}
                   />
                 </LineChart>
               </ResponsiveContainer>
