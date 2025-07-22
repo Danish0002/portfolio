@@ -134,7 +134,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
       </header>
 
       <div className="flex flex-wrap justify-between gap-4 flex-grow">
-        {/* Problem Stats */}
+        {/* Solved Problems */}
         <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
           <p className="text-sm font-semibold text-gray-700 mb-1">Solved Problems</p>
           {loading ? (
@@ -174,9 +174,9 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
           )}
         </section>
 
-        {/* Contest Chart */}
+        {/* Contest Rating Chart */}
         <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
-          <p className="text-sm font-semibold text-gray-700 mb-2">
+          <p className="text-sm font-semibold text-gray-700 mb-1">
             Contest Rating (Last {contestHistory.length} Contests)
           </p>
           {loading ? (
@@ -202,7 +202,11 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                     width={40}
                   />
                   <Tooltip
-                    contentStyle={{ backgroundColor: '#fff', borderColor: '#e5e7eb', fontSize: '0.8rem' }}
+                    contentStyle={{
+                      backgroundColor: '#fff',
+                      borderColor: '#e5e7eb',
+                      fontSize: '0.8rem',
+                    }}
                     labelStyle={{ color: '#4B5563' }}
                     cursor={{ stroke: '#cbd5e1', strokeWidth: 1 }}
                   />
@@ -212,7 +216,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                     stroke="#facc15"
                     strokeWidth={2}
                     dot={{ r: 3 }}
-                    activeDot={{ r: 5, strokeWidth: 2, fill: '#facc15', stroke: '#fbbf24' }}
+                    activeDot={{
+                      r: 5,
+                      strokeWidth: 2,
+                      fill: '#facc15',
+                      stroke: '#fbbf24',
+                    }}
                   />
                 </LineChart>
               </ResponsiveContainer>
