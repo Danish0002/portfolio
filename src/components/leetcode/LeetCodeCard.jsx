@@ -89,15 +89,15 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         });
 
         const maxContests = 20;
-        const contestHistory = contestJson.data?.userContestRankingHistory
+        const history = contestJson.data?.userContestRankingHistory
           ?.filter(d => d.rating !== null)
-          ?.map((entry, index) => ({
-            name: `C${index + 1}`,
+          ?.map((entry, i) => ({
+            name: `C${i + 1}`,
             rating: Math.round(entry.rating),
           }))
           ?.slice(-maxContests) || [];
 
-        setContestHistory(contestHistory);
+        setContestHistory(history);
       } catch (e) {
         setError(e.message);
       } finally {
@@ -106,10 +106,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
     })();
   }, [username]);
 
+  const totalSolved = stats.easy + stats.medium + stats.hard;
+
   if (error) {
     return (
       <div className="text-red-600 bg-red-50 border border-red-200 p-4 rounded-md">
-        <h3 className="text-base font-semibold">Something went wrong </h3>
+        <h3 className="text-base font-semibold">Something went wrong 😓</h3>
         <p className="text-sm mt-1">{error}</p>
       </div>
     );
@@ -117,35 +119,33 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
   if (!profile && !loading) return <div className="p-4">No data</div>;
 
-  const totalSolved = stats.easy + stats.medium + stats.hard;
-
   return (
     <motion.div
-      className="bg-white text-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-xl flex flex-col gap-4"
+      className="bg-white text-gray-800 rounded-2xl shadow-xl p-6 w-full max-w-xl flex flex-col justify-between"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
     >
-      <div>
-        <h2 className="text-xl font-bold text-gray-900">LeetCode Profile</h2>
-        <p className="text-sm text-gray-500">
+      <header>
+        <h2 className="text-xl font-bold text-gray-900 mb-1">LeetCode Profile</h2>
+        <p className="text-sm text-gray-500 mb-6">
           {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
         </p>
-      </div>
+      </header>
 
-      <div className="flex flex-wrap justify-between gap-4">
-        {/* Solved Problems Box */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
+      <div className="flex flex-wrap justify-between gap-4 flex-grow">
+        {/* Problem Stats */}
+        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
           <p className="text-sm font-semibold text-gray-700 mb-1">Solved Problems</p>
           {loading ? (
-            <div>
-              <SkeletonBox className="h-8 w-24 mb-3" />
-              <div className="space-y-3">
+            <>
+              <SkeletonBox className="h-8 w-24 mb-2" />
+              <div className="space-y-4">
                 <SkeletonBox className="h-4 w-full" />
                 <SkeletonBox className="h-4 w-full" />
                 <SkeletonBox className="h-4 w-full" />
               </div>
-            </div>
+            </>
           ) : (
             <>
               <p className="text-3xl font-bold text-emerald-500 mb-2">{totalSolved}</p>
@@ -165,26 +165,28 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                         style={{
                           width: `${(stats[level] / totalSolved) * 100 || 0}%`,
                         }}
-                      ></div>
+                      />
                     </div>
                   </li>
                 ))}
               </ul>
             </>
           )}
-        </div>
+        </section>
 
-        {/* Contest Rating Chart */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
-          <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
+        {/* Contest Chart */}
+        <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
+          <p className="text-sm font-semibold text-gray-700 mb-2">
+            Contest Rating (Last {contestHistory.length} Contests)
+          </p>
           {loading ? (
-            <SkeletonBox className="w-full h-36" />
+            <SkeletonBox className="w-full aspect-[4/3]" />
           ) : (
-            <div className="w-full h-36">
+            <div className="w-full aspect-[4/3]">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={contestHistory}
-                  margin={{ top: 10, right: 20, left: -10, bottom: 25 }}
+                  margin={{ top: 10, right: 10, left: -10, bottom: 20 }}
                 >
                   <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
                   <XAxis
@@ -192,7 +194,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
                     tick={{ fontSize: 11, fill: '#6B7280' }}
                     angle={-25}
                     textAnchor="end"
-                    height={40}
+                    height={30}
                   />
                   <YAxis
                     tick={{ fontSize: 11, fill: '#6B7280' }}
@@ -216,19 +218,19 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
               </ResponsiveContainer>
             </div>
           )}
-        </div>
+        </section>
       </div>
 
-      <div className="flex justify-center mt-4">
+      <footer className="flex justify-center mt-6">
         <a
           href={`https://leetcode.com/${username}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-yellow-500 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition-colors"
+          className="bg-yellow-500 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-yellow-600 transition"
         >
           View LeetCode Profile
         </a>
-      </div>
+      </footer>
     </motion.div>
   );
 }
