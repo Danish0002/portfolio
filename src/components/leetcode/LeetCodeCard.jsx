@@ -121,19 +121,19 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
 
   return (
     <motion.div
-      className="bg-white text-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-xl flex flex-col justify-between h-[480px]"
+      className="bg-white text-gray-800 rounded-2xl shadow-lg p-6 w-full max-w-xl flex flex-col gap-4"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div>
         <h2 className="text-xl font-bold text-gray-900">LeetCode Profile</h2>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-gray-500">
           {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
         </p>
       </div>
 
-      <div className="flex flex-wrap justify-between gap-4 flex-grow">
+      <div className="flex flex-wrap justify-between gap-4">
         {/* Solved Problems Box */}
         <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
           <p className="text-sm font-semibold text-gray-700 mb-1">Solved Problems</p>
@@ -175,12 +175,12 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </div>
 
         {/* Contest Rating Chart */}
-        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col justify-between">
+        <div className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px] flex flex-col">
           <p className="text-sm font-semibold text-gray-700 mb-2">Contest Rating Graph</p>
           {loading ? (
-            <SkeletonBox className="w-full h-40" />
+            <SkeletonBox className="w-full h-36" />
           ) : (
-            <div className="w-full h-40">
+            <div className="w-full h-36">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={contestHistory}
@@ -219,7 +219,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
         </div>
       </div>
 
-      <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-4">
         <a
           href={`https://leetcode.com/${username}`}
           target="_blank"
