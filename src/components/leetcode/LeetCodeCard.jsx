@@ -23,7 +23,7 @@ const LeetCodeCard = () => {
   const [contestHistory, setContestHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const username = "your_leetcode_username"; // Replace with your LeetCode username
+  const username = "Danish00z"; 
 
   useEffect(() => {
     const fetchLeetCodeData = async () => {
