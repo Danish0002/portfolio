@@ -10,10 +10,17 @@ import {
 } from 'recharts';
 import { Github } from 'lucide-react';
 
+// Simple skeleton loader
+const SkeletonBox = ({ className }) => (
+  <div className={`bg-gray-200 animate-pulse rounded ${className}`} />
+);
+
 const DevStatsCard = ({ username = "Danish0002" }) => {
   const [totalRepos, setTotalRepos] = useState(0);
   const [topRepos, setTopRepos] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const token = import.meta.env.VITE_GITHUB_TOKEN;
 
   const dates = useMemo(() => {
@@ -88,8 +95,12 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
         });
 
         setChartData(cd);
+        setLoading(false);
       })
-      .catch(err => console.error("GraphQL fetch error:", err));
+      .catch(err => {
+        console.error("GraphQL fetch error:", err);
+        setLoading(false);
+      });
   }, [username, token, dates]);
 
   const totalCommits = chartData.reduce((sum, { commits }) => sum + commits, 0);
@@ -114,54 +125,72 @@ const DevStatsCard = ({ username = "Danish0002" }) => {
       </header>
 
       <div className="flex flex-wrap justify-between gap-4 flex-grow">
-        {/* Total Repos Box */}
         <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
-          <p className="text-sm font-semibold text-gray-700 mb-1">
-            Total Repositories
-          </p>
-          <p className="text-3xl font-bold mb-2">{totalRepos}</p>
-          <ul className="text-sm text-gray-600 list-none space-y-1">
-            {topRepos.map((name, idx) => (
-              <li key={idx}>• {name}</li>
-            ))}
-          </ul>
+          <p className="text-sm font-semibold text-gray-700 mb-1">Total Repositories</p>
+          {loading ? (
+            <>
+              <SkeletonBox className="h-8 w-20 mb-2" />
+              <div className="space-y-1">
+                <SkeletonBox className="h-4 w-32" />
+                <SkeletonBox className="h-4 w-24" />
+                <SkeletonBox className="h-4 w-28" />
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-3xl font-bold mb-2">{totalRepos}</p>
+              <ul className="text-sm text-gray-600 list-none space-y-1">
+                {topRepos.map((name, idx) => (
+                  <li key={idx}>• {name}</li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
 
-        {/* Commits Chart Box */}
         <section className="bg-gray-100 rounded-xl p-4 flex-1 min-w-[220px]">
           <p className="text-sm font-semibold text-gray-700 mb-1">
             Commits (Past 7 Days)
           </p>
-          <p className="text-3xl font-bold text-emerald-500 mb-2">
-            {totalCommits}
-          </p>
-          <div className="w-full aspect-[4/3]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={chartData}
-                margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
-              >
-                <XAxis
-                  dataKey="date"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: 12 }}
-                />
-                <Tooltip
-                  formatter={v => [`${v} commit${v === 1 ? '' : 's'}`, '']}
-                  cursor={{ fill: 'rgba(16, 185, 129, 0.1)' }}
-                />
-                <Bar dataKey="commits" radius={[6, 6, 0, 0]}>
-                  {chartData.map((entry, i) => (
-                    <Cell
-                      key={i}
-                      fill={entry.commits === 0 ? '#d1d5db' : '#10B981'}
+          {loading ? (
+            <>
+              <SkeletonBox className="h-8 w-20 mb-2" />
+              <SkeletonBox className="w-full aspect-[4/3]" />
+            </>
+          ) : (
+            <>
+              <p className="text-3xl font-bold text-emerald-500 mb-2">
+                {totalCommits}
+              </p>
+              <div className="w-full aspect-[4/3]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={chartData}
+                    margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+                  >
+                    <XAxis
+                      dataKey="date"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12 }}
                     />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+                    <Tooltip
+                      formatter={v => [`${v} commit${v === 1 ? '' : 's'}`, '']}
+                      cursor={{ fill: 'rgba(16, 185, 129, 0.1)' }}
+                    />
+                    <Bar dataKey="commits" radius={[6, 6, 0, 0]}>
+                      {chartData.map((entry, i) => (
+                        <Cell
+                          key={i}
+                          fill={entry.commits === 0 ? '#d1d5db' : '#10B981'}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </>
+          )}
         </section>
       </div>
 
