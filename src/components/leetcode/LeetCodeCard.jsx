@@ -190,7 +190,7 @@ export default function LeetCodeCard({ username = 'Danish00z' }) {
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={contestHistory}
-                  margin={{ top: 10, right: 10, left: -10, bottom: 20 }}
+                  margin={{ top: 20, right: 10, left: -10, bottom: 20 }}
                 >
                   <CartesianGrid stroke="#e5e7eb" strokeDasharray="4 4" />
                   <XAxis
